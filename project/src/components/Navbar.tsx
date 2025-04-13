@@ -46,23 +46,34 @@ const Navbar = ({ session }: NavbarProps) => {
                 <h1 className='text-white text-xl font-bold'>Amenities Application</h1>
                 </div>
 
-                <div className='hidden md:block md:ml-6'>
-                    <div className='flex items-center justify-end text-white space-x-4'>
-                    {isLoggedIn && session?.user ? (
-                        <>
-                        <span>Welcome, {session.user?.name || session.user?.email}</span>
-                        <button
-                            // onClick={ handleLogout } // create a function to handle logout
-                            className='bg-gray-400 hover:bg-gray-500 rounded-md px-3 py-2'
-                        >
-                            Logout
-                        </button> 
-                        </>
-                    ) : (
-                        <span className='bg-gray-400 hover:bg-gray-500 rounded-md px-3 py-2'>
-                        <Link href='/login' className='mr-1'>Login</Link> | <Link href='/signup' className='ml-1'>Register</Link>
-                        </span>
-                    )}
+                <div className="hidden md:block md:ml-6">
+                    <div className="flex items-center justify-end text-white space-x-4">
+                        {isLoggedIn && session?.user ? (
+                            <>
+                                <span>Welcome, {session.user?.name || session.user?.email}</span>
+                                <button
+                                    onClick={handleLogout}
+                                    className="bg-gray-400 hover:bg-gray-500 rounded-md px-4 py-2 block text-center"
+                                >
+                                    Logout
+                                </button>
+                            </>
+                        ) : (
+                            <div className="flex space-x-2">
+                                <Link
+                                    href="/login"
+                                    className="bg-gray-400 hover:bg-gray-500 rounded-md px-4 py-2 block text-center"
+                                >
+                                    Login
+                                </Link>
+                                <Link
+                                    href="/signup"
+                                    className="bg-gray-400 hover:bg-gray-500 rounded-md px-4 py-2 block text-center"
+                                >
+                                    Register
+                                </Link>
+                            </div>
+                        )}
                     </div>
                 </div>
             </div>
