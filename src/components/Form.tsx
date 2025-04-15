@@ -1,8 +1,13 @@
 'use client'
 import React, { useEffect, useState } from "react";
 import Marker from "./Map"
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 export default function Form({ selectedLatLng, onSubmit }: any) {
+  const { data: session, status } = useSession();
+  const router = useRouter();
+  const isLoggedIn = true; // Replace with actual authentication check
   const [formData, setFormData] = useState({
     lat: "",
     lng: "",
@@ -27,12 +32,31 @@ export default function Form({ selectedLatLng, onSubmit }: any) {
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
+    console.log("Session:", session);
+    console.log("Status:", status);
+
+    // Redirect to login only if the user is explicitly unauthenticated
+    if (!isLoggedIn) {
+      router.push("/login");
+      return;
+    }
+
+    // Proceed with form submission if authenticated
     onSubmit({
       lat: parseFloat(formData.lat),
       lng: parseFloat(formData.lng),
       colour: getColorHex(formData.colour),
       name: formData.name,
       imageLink: formData.imageLink,
+    });
+
+    // Reset the form
+    setFormData({
+      lat: "",
+      lng: "",
+      colour: "1",
+      name: "",
+      imageLink: "",
     });
   };
 
