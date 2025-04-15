@@ -5,6 +5,6 @@ import Splash from "../components/Splash";
 export default function Home() {
   connectMongoDB();
   return (
-    <Splash />
+      <Splash />
   )
 }
