@@ -34,6 +34,14 @@ export default function Form({ selectedLatLng, onSubmit }: any) {
       name: formData.name,
       imageLink: formData.imageLink,
     });
+
+    setFormData({
+      lat: "",
+      lng: "",
+      colour: "1",
+      name: "",
+      imageLink: "",
+    });
   };
 
   const getColorHex = (val: string) => {
