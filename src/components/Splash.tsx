@@ -3,25 +3,31 @@ import Link from 'next/link';
 
 const Splash = () => {
   return (
-    <div className="splash-container bg-gray-100 h-screen flex items-center justify-center">
-      <div className="splash-content flex w-4/5">
+    <div
+      className="splash-container h-screen flex items-center justify-center"
+      style={{
+        backgroundImage: "url('/assets/map.jpg')",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+      }}
+    >
+      <div className="splash-content flex flex-col items-center w-4/5">
         {/* Left Section */}
-        <div className="left-section flex flex-col justify-between w-1/2">
-          <div className="text-box bg-gray shadow-md rounded-md p-6 mb-4">
-            <h2 className="text-lg font-bold">Text Box 1</h2>
-            <p className="text-sm">This is the content for the first text box.</p>
+        <div className="left-section flex flex-col items-center w-full gap-6">
+          <div className="text-box bg-white shadow-md rounded-md p-6 w-full max-w-lg">
+            <h1 className="text-lg font-bold">Welcome to Amenities Application!</h1>
           </div>
-          <div className="text-box bg-gray shadow-md rounded-md p-6 mt-4">
-            <h2 className="text-lg font-bold">Text Box 2</h2>
-            <p className="text-sm">This is the content for the second text box.</p>
+          <div className="text-box bg-white shadow-md rounded-md p-6 w-full max-w-lg">
+            <h2 className="text-lg font-bold">Purpose/Function</h2>
+            <p className="text-sm">
+              This application allows you to create your own custom pins on an interactive map. Any specific thing you want to pin (bathrooms, stairs, etc.), you can do it here!
+            </p>
           </div>
-        </div>
-
-        {/* Right Section */}
-        <div className="right-section w-1/2 flex items-center justify-center">
-          <div className="text-box bg-grey shadow-md rounded-md p-6">
-            <h2 className="text-lg font-bold">Text Box 3</h2>
-            <p className="text-sm">This is the content for the third text box.</p>
+          <div className="text-box bg-white shadow-md rounded-md p-6 w-full max-w-lg">
+            <h2 className="text-lg font-bold">How To Use</h2>
+            <p className="text-sm">
+              Simply navigate to the Maps page to get started! You'll need to create an account and be logged in to submit a pin.
+            </p>
           </div>
         </div>
       </div>
