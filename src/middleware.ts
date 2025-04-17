@@ -10,10 +10,10 @@ const middleware = async (request: NextRequest) => {
     const isAuthenticated = !!session?.user;
     console.log(isAuthenticated, pathname); 
 
-    const publicPaths = ["/", "/show-item", "/show-items", "/api/items"];
+    const publicPaths = ["/", "/map", "/login", "/signup", "/settings"];
 
     if (!isAuthenticated && !publicPaths.includes(pathname)) {
-        return NextResponse.redirect(new URL("/", request.url));
+        return NextResponse.redirect(new URL("/login", request.url));
     }
 
     return NextResponse.next();
@@ -22,9 +22,8 @@ const middleware = async (request: NextRequest) => {
 
 export const config = {
   matcher: [
-    "/create-item/:path*",
-    "/update-item/:path*",
-    "/delete-item/:path*", // set up protected routes
+    "/api/items/:path*",
+    "/api/items/",
   ],
 };
 
