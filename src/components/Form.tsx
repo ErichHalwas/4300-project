@@ -1,4 +1,4 @@
-'use client'
+'use client';
 import React, { useEffect, useState } from "react";
 import Marker from "./Map"
 import { useSession } from "next-auth/react";
@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 export default function Form({ selectedLatLng, onSubmit }: any) {
   const { data: session, status } = useSession();
   const router = useRouter();
-  const isLoggedIn = true; // Replace with actual authentication check
+  
   const [formData, setFormData] = useState({
     lat: "",
     lng: "",
@@ -30,24 +30,29 @@ export default function Form({ selectedLatLng, onSubmit }: any) {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e: any) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
-    console.log("Session:", session);
-    console.log("Status:", status);
-
-    // Redirect to login only if the user is explicitly unauthenticated
-    if (!isLoggedIn) {
+    
+    // Redirect to login if the user is not authenticated
+    if (status === "unauthenticated" || !session) {
       router.push("/login");
       return;
     }
 
-    // Proceed with form submission if authenticated
-    onSubmit({
+    try {
+      // Send a POST request to the API
+      const response = await fetch("/api/items", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
       lat: parseFloat(formData.lat),
       lng: parseFloat(formData.lng),
       colour: getColorHex(formData.colour),
       name: formData.name,
       imageLink: formData.imageLink,
+      }),
     });
 
     // Reset the form
@@ -58,6 +63,9 @@ export default function Form({ selectedLatLng, onSubmit }: any) {
       name: "",
       imageLink: "",
     });
+} catch (error) {
+      console.error("Error submitting item:", error);
+    }
   };
 
   const getColorHex = (val: string) => {

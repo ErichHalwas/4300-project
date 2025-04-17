@@ -1,4 +1,5 @@
-import { type NextAuthOptions } from "next-auth";
+import NextAuth from "next-auth";
+type NextAuthOptions = typeof NextAuth extends (options: infer T) => any ? T : never;
 import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
 import User from "./models/userSchema";
@@ -10,7 +11,7 @@ interface UserType {
   password: string;
 }
 
-export const authConfig = {
+export const authConfig: NextAuthOptions = {
   session: {
     strategy: "jwt", // Use JWT for session management
   },
@@ -20,8 +21,10 @@ export const authConfig = {
         email: { label: "Email", type: "text" },
         password: { label: "Password", type: "password" },
       },
-      async authorize(credentials) {
-        if (!credentials) return null;
+      async authorize(credentials: Partial<Record<"email" | "password", unknown>> | undefined) {
+        if (!credentials || typeof credentials.email !== "string" || typeof credentials.password !== "string") {
+          return null;
+        }
 
         const user = await User.findOne({ email: credentials.email }).lean<UserType | null>();
         if (user && typeof user.password === "string") {
@@ -35,4 +38,4 @@ export const authConfig = {
     }),
   ],
   secret: process.env.NEXTAUTH_SECRET, // Ensure this is set in your .env file
-} as NextAuthOptions; // Explicitly assert the type
+};
