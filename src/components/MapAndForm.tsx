@@ -26,6 +26,7 @@ export default function MapWithForm() {
 
     // Redirect to login if the user is not authenticated
     if (status === 'unauthenticated' || !session) {
+      console.log(('Unauthenticated'));
       router.push('/login');
       return;
     }

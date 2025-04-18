@@ -1,13 +1,11 @@
 'use client';
 import React, { useEffect, useState } from "react";
-import Marker from "./Map"
-import { useSession } from "next-auth/react";
+import Marker from "./Map";
 import { useRouter } from "next/navigation";
 
 export default function Form({ selectedLatLng, onSubmit }: any) {
-  const { data: session, status } = useSession();
   const router = useRouter();
-  
+
   const [formData, setFormData] = useState({
     lat: "",
     lng: "",
@@ -32,12 +30,6 @@ export default function Form({ selectedLatLng, onSubmit }: any) {
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
-    
-    // Redirect to login if the user is not authenticated
-    if (status === "unauthenticated" || !session) {
-      router.push("/login");
-      return;
-    }
 
     try {
       // Send a POST request to the API
@@ -47,23 +39,27 @@ export default function Form({ selectedLatLng, onSubmit }: any) {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-      lat: parseFloat(formData.lat),
-      lng: parseFloat(formData.lng),
-      colour: getColorHex(formData.colour),
-      name: formData.name,
-      imageLink: formData.imageLink,
-      }),
-    });
+          lat: parseFloat(formData.lat),
+          lng: parseFloat(formData.lng),
+          colour: getColorHex(formData.colour),
+          name: formData.name,
+          imageLink: formData.imageLink,
+        }),
+      });
 
-    // Reset the form
-    setFormData({
-      lat: "",
-      lng: "",
-      colour: "1",
-      name: "",
-      imageLink: "",
-    });
-} catch (error) {
+      if (!response.ok) {
+        throw new Error(`Failed to submit item: ${response.statusText}`);
+      }
+
+      // Reset the form
+      setFormData({
+        lat: "",
+        lng: "",
+        colour: "1",
+        name: "",
+        imageLink: "",
+      });
+    } catch (error) {
       console.error("Error submitting item:", error);
     }
   };
@@ -97,7 +93,12 @@ export default function Form({ selectedLatLng, onSubmit }: any) {
           className="w-full p-2 mb-2 border rounded"
         />
         <label>Colour</label>
-        <select name="colour" value={formData.colour} onChange={handleChange} className="w-full p-2 mb-2 border rounded">
+        <select
+          name="colour"
+          value={formData.colour}
+          onChange={handleChange}
+          className="w-full p-2 mb-2 border rounded"
+        >
           <option value="1">Red</option>
           <option value="2">Green</option>
           <option value="3">Blue</option>
@@ -117,7 +118,9 @@ export default function Form({ selectedLatLng, onSubmit }: any) {
           onChange={handleChange}
           className="w-full p-2 mb-2 border rounded"
         />
-        <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded">Submit</button>
+        <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded">
+          Submit
+        </button>
       </form>
     </div>
   );
