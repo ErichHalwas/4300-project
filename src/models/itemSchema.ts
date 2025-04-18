@@ -6,7 +6,6 @@ export interface IItem extends Document {
     colour: string;
     name: string;
     imageLink: string;
-    userId: string;
   }
   
   const ItemSchema = new Schema<IItem>({
@@ -15,7 +14,6 @@ export interface IItem extends Document {
     colour: { type: String, required: true },
     name: { type: String, required: false },
     imageLink: { type: String, required: false },
-    userId: { type: String, required: true },
   });
   const Item: Model<IItem> = mongoose.models.Item || mongoose.model<IItem>("Item", ItemSchema);
   export default Item;

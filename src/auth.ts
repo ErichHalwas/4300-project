@@ -54,7 +54,7 @@ export const {
             },
         }),
     ],
-    callbacks: {
+    /*callbacks: {
         async jwt({ token, user }) {
             // Attach user information to the token
             if (user) {
@@ -76,5 +76,5 @@ export const {
             }
             return session;
         },
-    },
+    },*/
 });
