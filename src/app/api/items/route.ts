@@ -1,7 +1,7 @@
 import { NextResponse, NextRequest } from "next/server";
 import connectMongoDB from "../../../../config/mongodb";
 import Item from "../../../models/itemSchema";
-import getServerSession from "next-auth";
+import { auth } from "../../../auth.config"
 import { authConfig } from "../../../auth.config";
 
 export async function GET(request: NextRequest) {
@@ -15,7 +15,7 @@ export async function POST(request: NextRequest) {
         await connectMongoDB();
 
         // Check if the user is authenticated
-        const session: any = getServerSession(authConfig);
+        const session = await auth();
         if (!session || !session?.user) {
             return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
         }
