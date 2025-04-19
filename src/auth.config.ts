@@ -1,38 +1,58 @@
-import { type NextAuthOptions } from "next-auth";
+import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
 import User from "./models/userSchema";
-
-interface UserType {
-  _id: string;
-  email: string;
-  username: string;
-  password: string;
-}
+import type { NextAuthConfig } from "next-auth";
 
 export const authConfig = {
   session: {
-    strategy: "jwt", // Use JWT for session management
+    strategy: "jwt",
   },
   providers: [
     CredentialsProvider({
       credentials: {
-        email: { label: "Email", type: "text" },
-        password: { label: "Password", type: "password" },
+        email: {},
+        password: {},
       },
       async authorize(credentials) {
         if (!credentials) return null;
 
-        const user = await User.findOne({ email: credentials.email }).lean<UserType | null>();
-        if (user && typeof user.password === "string") {
-          const isPasswordValid = await bcrypt.compare(credentials.password, user.password);
-          if (isPasswordValid) {
-            return { id: user._id.toString(), email: user.email, name: user.username };
+        try {
+          const user = await User.findOne({ email: credentials.email }).lean();
+
+          if (user) {
+            const isMatch = await bcrypt.compare(
+              credentials.password as string,
+              user.password
+            );
+
+            if (isMatch) {
+              return {
+                id: user._id.toString(),
+                email: user.email,
+                name: user.username,
+              };
+            } else {
+              console.log("Email or password is incorrect");
+              return null;
+            }
+          } else {
+            console.log("User not found");
+            return null;
           }
+        } catch (error) {
+          console.log("An error occurred in authorize:", error);
+          return null;
         }
-        return null; // Return null if authentication fails
       },
     }),
   ],
-  secret: process.env.NEXTAUTH_SECRET, // Ensure this is set in your .env file
-} as NextAuthOptions; // Explicitly assert the type
+  secret: process.env.AUTH_SECRET,
+} satisfies NextAuthConfig;
+
+export const {
+  handlers: { GET, POST },
+  auth,
+  signIn,
+  signOut,
+} = NextAuth(authConfig);

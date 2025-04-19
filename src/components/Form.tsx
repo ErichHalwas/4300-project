@@ -1,13 +1,13 @@
-'use client'
+'use client';
 import React, { useEffect, useState } from "react";
-import Marker from "./Map"
-import { useSession } from "next-auth/react";
+import Marker from "./Map";
 import { useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
 
 export default function Form({ selectedLatLng, onSubmit }: any) {
-  const { data: session, status } = useSession();
   const router = useRouter();
-  const isLoggedIn = true; // Replace with actual authentication check
+  const { data: session, status } = useSession();
+
   const [formData, setFormData] = useState({
     lat: "",
     lng: "",
@@ -30,34 +30,53 @@ export default function Form({ selectedLatLng, onSubmit }: any) {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e: any) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
-    console.log("Session:", session);
-    console.log("Status:", status);
-
-    // Redirect to login only if the user is explicitly unauthenticated
-    if (!isLoggedIn) {
+    console.log(status);
+    if (status === "loading") {
+      return <></>; 
+    }
+    // Redirect unauthenticated users to the login page
+    if (status === "unauthenticated") {
       router.push("/login");
       return;
     }
 
-    // Proceed with form submission if authenticated
-    onSubmit({
-      lat: parseFloat(formData.lat),
-      lng: parseFloat(formData.lng),
-      colour: getColorHex(formData.colour),
-      name: formData.name,
-      imageLink: formData.imageLink,
-    });
+    try {
+      // Send a POST request to the API
+      const response = await fetch("/api/items", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          lat: parseFloat(formData.lat),
+          lng: parseFloat(formData.lng),
+          colour: getColorHex(formData.colour),
+          name: formData.name,
+          imageLink: formData.imageLink,
+        }),
+      });
 
-    // Reset the form
-    setFormData({
-      lat: "",
-      lng: "",
-      colour: "1",
-      name: "",
-      imageLink: "",
-    });
+      if (!response.ok) {
+        throw new Error(`Failed to submit item: ${response.statusText}`);
+      }
+
+      // Reset the form
+      setFormData({
+        lat: "",
+        lng: "",
+        colour: "1",
+        name: "",
+        imageLink: "",
+      });
+
+      // Notify parent component about the new marker
+      const newMarker = await response.json();
+      onSubmit(newMarker);
+    } catch (error) {
+      console.error("Error submitting item:", error);
+    }
   };
 
   const getColorHex = (val: string) => {
@@ -89,7 +108,12 @@ export default function Form({ selectedLatLng, onSubmit }: any) {
           className="w-full p-2 mb-2 border rounded"
         />
         <label>Colour</label>
-        <select name="colour" value={formData.colour} onChange={handleChange} className="w-full p-2 mb-2 border rounded">
+        <select
+          name="colour"
+          value={formData.colour}
+          onChange={handleChange}
+          className="w-full p-2 mb-2 border rounded"
+        >
           <option value="1">Red</option>
           <option value="2">Green</option>
           <option value="3">Blue</option>
@@ -109,7 +133,9 @@ export default function Form({ selectedLatLng, onSubmit }: any) {
           onChange={handleChange}
           className="w-full p-2 mb-2 border rounded"
         />
-        <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded">Submit</button>
+        <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded">
+          Submit
+        </button>
       </form>
     </div>
   );
