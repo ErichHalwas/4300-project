@@ -6,20 +6,12 @@ import { authConfig } from '../../../../auth.config';
 
 export async function GET(request: NextRequest, { params }: { params: { id: string } }) {
     await connectMongoDB();
-    const {data: session, status} = useSession();
-    if (status === "unauthenticated") {
-        return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-    }
     const item = await Item.findById(params.id);
     return NextResponse.json(item);
 };
 
 export async function DELETE(request: NextRequest, { params }: { params: { id: string } }) {
     await connectMongoDB();
-    const {data: session, status} = useSession();
-    if (status === "unauthenticated") {
-        return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-    }
     const item = await Item.findByIdAndDelete(params.id);
     return NextResponse.json(item);
 }
@@ -27,15 +19,10 @@ export async function DELETE(request: NextRequest, { params }: { params: { id: s
 export async function PUT(request: NextRequest, { params }: { params: { id: string } }) {
     await connectMongoDB();
 
-    const {data: session, status} = useSession();
-    if (status === "unauthenticated") {
-        return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-    }
-
     const body = await request.json();
     const { lat, lng, colour, title, imageLink } = body;
     const updatedItem = await Item.findByIdAndUpdate(
-        {_id: params.id, userId: session?.user?.id},
+        {_id: params.id},
         {
         lat,
         lng,
