@@ -54,8 +54,11 @@ export const {
             },
         }),
     ],
-    /*callbacks: {
-        async jwt({ token, user }) {
+    session: {
+        strategy: "jwt", // Explicitly set the session strategy to "jwt"
+    },
+    callbacks: {
+        async jwt({ token, user, account }) {
             // Attach user information to the token
             if (user) {
                 token.id = user.id;
@@ -76,5 +79,5 @@ export const {
             }
             return session;
         },
-    },*/
+    },
 });

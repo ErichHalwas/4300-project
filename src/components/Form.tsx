@@ -2,9 +2,11 @@
 import React, { useEffect, useState } from "react";
 import Marker from "./Map";
 import { useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
 
 export default function Form({ selectedLatLng, onSubmit }: any) {
   const router = useRouter();
+  const { data: session, status } = useSession();
 
   const [formData, setFormData] = useState({
     lat: "",
@@ -30,6 +32,15 @@ export default function Form({ selectedLatLng, onSubmit }: any) {
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
+    console.log(status);
+    if (status === "loading") {
+      return <></>; 
+    }
+    // Redirect unauthenticated users to the login page
+    if (status === "unauthenticated") {
+      router.push("/login");
+      return;
+    }
 
     try {
       // Send a POST request to the API
@@ -59,6 +70,10 @@ export default function Form({ selectedLatLng, onSubmit }: any) {
         name: "",
         imageLink: "",
       });
+
+      // Notify parent component about the new marker
+      const newMarker = await response.json();
+      onSubmit(newMarker);
     } catch (error) {
       console.error("Error submitting item:", error);
     }

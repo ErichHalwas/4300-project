@@ -1,6 +1,7 @@
 import { NextResponse, NextRequest } from "next/server";
 import connectMongoDB from "../../../../config/mongodb";
 import Item from "../../../models/itemSchema";
+import getServerSession from "next-auth";
 import { authConfig } from "../../../auth.config";
 
 export async function GET(request: NextRequest) {
@@ -12,6 +13,13 @@ export async function GET(request: NextRequest) {
 export async function POST(request: NextRequest) {
     try {
         await connectMongoDB();
+
+        // Check if the user is authenticated
+        const session: any = getServerSession(authConfig);
+        if (!session || !session?.user) {
+            return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+        }
+
         const body = await request.json();
         const { lat, lng, colour, name, imageLink } = body;
 
@@ -24,9 +32,9 @@ export async function POST(request: NextRequest) {
             lat,
             lng,
             colour,
-            name: name || "", // Default to an empty string if not provided
-            imageLink: imageLink || "", // Default to an empty string if not provided
-            userId: "test-user-id", // Temporary placeholder for userId
+            name: name || "",
+            imageLink: imageLink || "",
+            userId: session.user.id, // Associate the item with the authenticated user
         });
 
         await newItem.save();
