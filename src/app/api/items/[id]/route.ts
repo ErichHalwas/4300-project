@@ -6,8 +6,23 @@ import { authConfig } from '../../../../auth.config';
 
 export async function GET(request: NextRequest, { params }: { params: { id: string } }) {
     await connectMongoDB();
-    const item = await Item.findById(params.id);
-    return NextResponse.json(item);
+
+    const { id } = await params;
+
+    if (!id) {
+        return NextResponse.json({ error: 'Missing ID' }, { status: 400 });
+    }
+
+    try {
+        const item = await Item.findById(id);
+        if (!item) {
+        return NextResponse.json({ error: 'Item not found' }, { status: 404 });
+        }
+        return NextResponse.json(item);
+    } catch (error: any) {
+        console.error('Error fetching item by ID:', error.message);
+        return NextResponse.json({ error: error.message }, { status: 500 });
+    }
 };
 
 export async function DELETE(request: NextRequest, { params }: { params: { id: string } }) {
