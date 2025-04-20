@@ -51,7 +51,9 @@ const MapPage = () => {
           <MapObj 
             onMapClick={handleMapClick} 
             markers={markers} 
-            onMarkerClick={(marker) => setSelectedMarker(marker as CustomMarker)} 
+            onMarkerClick={(marker) => {
+              setSelectedMarker(marker as CustomMarker)
+            } }
           />
           {selectedMarker && (
         <MarkerOverlay

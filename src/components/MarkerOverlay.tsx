@@ -18,6 +18,8 @@ export default function MarkerOverlay({
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
+  console.log("MarkerOverlay rendered with ID:", markerId);
+
   useEffect(() => {
     const fetchMarkerData = async () => {
       try {
@@ -33,6 +35,7 @@ export default function MarkerOverlay({
         const data: Marker = await response.json();
         console.log(data);
         setMarker(data);
+        console.log("Fetched marker data:", data);
 
       } catch (err: any) {
         setError(err.message || "An error occurred while fetching marker data.");
@@ -47,13 +50,21 @@ export default function MarkerOverlay({
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
       if (!(e.target as HTMLElement).closest(".marker-overlay")) {
+        console.log("Click outside detected — closing overlay");
         onClose();
       }
     };
-
-    document.addEventListener("click", handleClickOutside);
-    return () => document.removeEventListener("click", handleClickOutside);
+  
+    const timeoutId = setTimeout(() => {
+      document.addEventListener("click", handleClickOutside);
+    }, 100); // slight delay to avoid immediate closing on mount
+  
+    return () => {
+      clearTimeout(timeoutId);
+      document.removeEventListener("click", handleClickOutside);
+    };
   }, [onClose]);
+  
 
   if (loading) {
     return (
