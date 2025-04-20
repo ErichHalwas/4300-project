@@ -12,7 +12,7 @@ export interface IItem extends Document {
     lat: { type: Number, required: true },
     lng: { type: Number, required: true },
     colour: { type: String, required: true },
-    name: { type: String, required: false },
+    name: { type: String, required: true },
     imageLink: { type: String, required: false },
   });
   const Item: Model<IItem> = mongoose.models.Item || mongoose.model<IItem>("Item", ItemSchema);

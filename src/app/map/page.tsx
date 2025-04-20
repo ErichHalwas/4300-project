@@ -5,10 +5,14 @@ import { SessionProvider } from 'next-auth/react';
 import MapObj from '../../components/Map';
 import { CustomMarker } from '../../components/Types';
 import Form from '../../components/Form';
+import MarkerOverlay from '../../components/MarkerOverlay';
 
 const MapPage = () => {
   const [selectedLatLng, setSelectedLatLng] = useState<{ lat: number; lng: number } | null>(null);
   const [markers, setMarkers] = useState<CustomMarker[]>([]);
+  const [selectedMarker, setSelectedMarker] = useState<CustomMarker | null>(null);
+
+  console.log(selectedMarker);
 
   // Fetch markers from the database when the component loads
   useEffect(() => {
@@ -30,6 +34,7 @@ const MapPage = () => {
 
   const handleMapClick = (lat: number, lng: number) => {
     setSelectedLatLng({ lat, lng });
+    setSelectedMarker(null); // Reset selected marker when clicking on the map
   };
 
   const handleFormSubmit = (marker: CustomMarker) => {
@@ -42,8 +47,18 @@ const MapPage = () => {
         <div className="w-full md:w-1/3 p-4">
           <Form selectedLatLng={selectedLatLng} onSubmit={handleFormSubmit} />
         </div>
-        <div className="w-full md:w-2/3">
-          <MapObj onMapClick={handleMapClick} markers={markers} />
+        <div className="w-full md:w-2/3 relative min-h-screen">
+          <MapObj 
+            onMapClick={handleMapClick} 
+            markers={markers} 
+            onMarkerClick={(marker) => setSelectedMarker(marker as CustomMarker)} 
+          />
+          {selectedMarker && (
+        <MarkerOverlay
+          markerId={selectedMarker._id}
+          onClose={() => setSelectedMarker(null)} // Close the overlay when clicking outside
+        />
+          )}
         </div>
       </div>
     </SessionProvider>

@@ -6,8 +6,16 @@ import { authConfig } from "../../../auth.config";
 
 export async function GET(request: NextRequest) {
     await connectMongoDB();
-    const items = await Item.find({});
-    return NextResponse.json(items);
+    const items = await Item.find({}).lean();
+    const formattedItems = items.map(item => ({
+        _id: item._id.toString(), // Convert ObjectId to string
+        lat: item.lat,
+        lng: item.lng,
+        name: item.name,
+        colour: item.colour,
+        imageLink: item.imageLink,
+      }));
+    return NextResponse.json(formattedItems, { status: 200 });
 };
 
 export async function POST(request: NextRequest) {
