@@ -47,6 +47,20 @@ export const authConfig = {
       },
     }),
   ],
+  callbacks: {
+    async session({ session, token }) {
+      if (token && session.user) {
+        session.user.id = token.sub; // Add user ID to session
+      }
+      return session;
+    },
+    async jwt({ token, user }) {
+      if (user) {
+        token.sub = user.id; // Store user ID in the token
+      }
+      return token;
+    },
+  },
   secret: process.env.AUTH_SECRET,
 } satisfies NextAuthConfig;
 

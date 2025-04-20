@@ -14,18 +14,17 @@ const MapPage = () => {
 
   console.log(selectedMarker);
 
-  // Fetch markers from the database when the component loads
   useEffect(() => {
     const fetchMarkers = async () => {
       try {
-        const response = await fetch('/api/items'); // Fetch all items from the database
+        const response = await fetch("/api/items");
         if (!response.ok) {
           throw new Error(`Failed to fetch markers: ${response.statusText}`);
         }
         const data: CustomMarker[] = await response.json();
-        setMarkers(data); // Update the markers state with the fetched data
+        setMarkers(data); // Set all markers
       } catch (error) {
-        console.error('Error fetching markers:', error);
+        console.error("Error fetching markers:", error);
       }
     };
 
