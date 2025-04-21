@@ -25,6 +25,7 @@ const MapPage = () => {
         }
         const data: CustomMarker[] = await response.json();
         setMarkers(data); // Set all markers
+        setFilter(data); // Set filtered markers to all markers initially
       } catch (error) {
         console.error("Error fetching markers:", error);
       }
@@ -52,7 +53,6 @@ const MapPage = () => {
   }
 
   return (
-    <SessionProvider>
       <div className="flex flex-col md:flex-row w-full min-h-screen">
         <div className="w-full md:w-1/3 p-4">
           <Form selectedLatLng={selectedLatLng} onSubmit={handleFormSubmit} onFilterChange={onFilterChange} />
@@ -60,7 +60,7 @@ const MapPage = () => {
         <div className="w-full md:w-2/3 relative min-h-screen">
           <MapObj 
             onMapClick={handleMapClick} 
-            markers={markers} 
+            markers={filter} 
             onMarkerClick={(marker) => {
               setSelectedMarker(marker as CustomMarker)
             } }
@@ -73,7 +73,6 @@ const MapPage = () => {
           )}
         </div>
       </div>
-    </SessionProvider>
   );
 };
 
