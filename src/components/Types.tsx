@@ -5,5 +5,6 @@ export type CustomMarker = {
     colour?: string;
     name: string;
     imageLink?: string;
+    userId?: string;
   };
   
