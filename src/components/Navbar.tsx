@@ -31,8 +31,8 @@ const Navbar = ({ session }: NavbarProps) => {
     return (
     <nav className='bg-red-700 border-b-1 border-white'>
         <div className='mx-auto max-w-7xl px-2 sm:px-6 lg:px-8'>
-            <div className='relative flex h-20 items-center justify-between'>
-                <div className='flex flex-1 items-center justify-start'>
+            <div className='relative flex h-20 items-center justify-evenly'>
+                <div className='flex items-center justify-start'>
                     <div className='hidden md:ml-6 md:block'>
                         <div className='flex space-x-2 ml-6'>
                             <Link href='/' className='text-white hover:bg-gray-900 hover:text-white rounded-md px-3 py-2'>Home</Link>
@@ -42,8 +42,8 @@ const Navbar = ({ session }: NavbarProps) => {
                     </div>
                 </div>
 
-                <div className='absolute inset-x-0 flex justify-center'>
-                <h1 className='text-white text-xl font-bold'>Amenities Application</h1>
+                <div className='flex justify-center flex-1'>
+                    <h1 className='text-white text-xl font-bold'>Amenities Application</h1>
                 </div>
 
                 <div className="hidden md:block md:ml-6">

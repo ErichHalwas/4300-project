@@ -22,3 +22,10 @@ export async function doCredentialLogin(formData: FormData): Promise<any> {
       throw err;
    }
 } 
+
+export async function doSaveSettings(formData: FormData): Promise<any> {
+    const selectedAmenities = formData.getAll('amenities'); 
+
+    console.log('Selected amenities:', selectedAmenities);
+    // I'm unsure of what to do with this data.
+}

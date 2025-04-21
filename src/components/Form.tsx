@@ -4,7 +4,7 @@ import Marker from "./Map";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 
-export default function Form({ selectedLatLng, onSubmit }: any) {
+export default function Form({ selectedLatLng, onSubmit, onFilterChange }: any) {
   const router = useRouter();
   const { data: session, status } = useSession();
 
@@ -15,6 +15,8 @@ export default function Form({ selectedLatLng, onSubmit }: any) {
     name: "",
     imageLink: "",
   });
+
+  const [filter, setFilter] = useState(false);
 
   useEffect(() => {
     if (selectedLatLng) {
@@ -29,6 +31,11 @@ export default function Form({ selectedLatLng, onSubmit }: any) {
   const handleChange = (e: any) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
+
+  const handleFilterChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFilter(e.target.checked);
+    onFilterChange(e.target.checked);
+  }
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
@@ -137,6 +144,20 @@ export default function Form({ selectedLatLng, onSubmit }: any) {
           Submit
         </button>
       </form>
+
+      {status === "authenticated" && (
+        <div className="mt-4">
+          <label className="flex items-center">
+            <input
+              type="checkbox"
+              checked={filter}
+              onChange={handleFilterChange}
+              className="mr-2"
+            />
+            Show only my markers
+          </label>
+        </div>
+      )}
     </div>
   );
 }
