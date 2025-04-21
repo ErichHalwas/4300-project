@@ -37,7 +37,7 @@ const Navbar = ({ session }: NavbarProps) => {
                         <div className='flex space-x-2 ml-6'>
                             <Link href='/' className='text-white hover:bg-gray-900 hover:text-white rounded-md px-3 py-2'>Home</Link>
                             <Link href='/map' className='text-white hover:bg-gray-900 hover:text-white rounded-md px-3 py-2'>Map</Link>
-                            <Link href='/settings' className='text-white hover:bg-gray-900 hover:text-white rounded-md px-3 py-2'>Settings</Link>
+                        {/*  <Link href='/settings' className='text-white hover:bg-gray-900 hover:text-white rounded-md px-3 py-2'>Settings</Link>*/}
                         </div>
                     </div>
                 </div>
