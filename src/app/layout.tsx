@@ -1,6 +1,7 @@
 import "./globals.css";
 import Navbar from "../components/Navbar";
 import { auth } from "../auth";
+import { SessionProvider } from "next-auth/react";
 
 export default async function RootLayout({
   children,
@@ -12,8 +13,10 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body>
-        <Navbar session={session} />
-        {children}
+        <SessionProvider session={session}>
+          <Navbar session={session} />
+          {children}
+        </SessionProvider>
       </body>
     </html>
   );

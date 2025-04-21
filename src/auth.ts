@@ -3,7 +3,6 @@ import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
 import User from "./models/userSchema";
-import { IUser } from "./models/userSchema"; // Import the IUser interface
 
 export const {
     handlers: { GET, POST },
@@ -12,7 +11,6 @@ export const {
     signOut,
 } = NextAuth({
     ...authConfig,
-    secret: process.env.AUTH_SECRET,
   providers: [
     CredentialsProvider({
       credentials: {
@@ -23,8 +21,7 @@ export const {
         if (!credentials) return null;
 
         try {
-            console.log("NEXTAUTH_SECRET:", process.env.AUTH_SECRET);
-          const user = (await User.findOne({ email: credentials.email }).lean());
+          const user = await User.findOne({ email: credentials.email }).lean();
 
           if (user) {
             const isMatch = await bcrypt.compare(

@@ -12,6 +12,6 @@ const userSchema = new Schema<IUser>({
   password: { type: String, required: true },
 });
 const User: Model<IUser> = mongoose.models.User || mongoose.model<IUser>("User", userSchema);
-export default User;
 
+export default User;
 // export const User = mongoose.models.User ?? mongoose.model("User", userSchema);
