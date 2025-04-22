@@ -112,7 +112,7 @@ export default function Form({ selectedLatLng, onSubmit, onFilterChange }: any) 
           name="lng"
           value={formData.lng}
           onChange={handleChange}
-          className="w-full p-2 mb-2  text-stegemanborder rounded"
+          className="w-full p-2 mb-2  text-stegeman border rounded"
         />
         <label>Colour</label>
         <select
