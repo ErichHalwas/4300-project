@@ -35,8 +35,8 @@ const Navbar = ({ session }: NavbarProps) => {
                 <div className='flex items-center justify-start'>
                     <div className='hidden md:ml-6 md:block'>
                         <div className='flex space-x-2 ml-6'>
-                            <Link href='/' className='text-chapel hover:bg-stegeman  hover:text-stegeman rounded-md px-3 py-2'>Home</Link>
-                            <Link href='/map' className='text-chapel hover:bg-stegeman hover:text-stegeman rounded-md px-3 py-2'>Map</Link>
+                            <Link href='/' className='text-chapel hover:bg-stegeman rounded-md px-3 py-2'>Home</Link>
+                            <Link href='/map' className='text-chapel hover:bg-stegeman rounded-md px-3 py-2'>Map</Link>
                         {/*  <Link href='/settings' className='text-white hover:bg-gray-900 hover:text-white rounded-md px-3 py-2'>Settings</Link>*/}
                         </div>
                     </div>
