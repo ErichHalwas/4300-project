@@ -11,7 +11,7 @@ export default function Form({ selectedLatLng, onSubmit, onFilterChange }: any) 
   const [formData, setFormData] = useState({
     lat: "",
     lng: "",
-    colour: "1",
+    colour: "0a0a0a",
     name: "",
     imageLink: "",
   });
@@ -105,40 +105,40 @@ export default function Form({ selectedLatLng, onSubmit, onFilterChange }: any) 
           name="lat"
           value={formData.lat}
           onChange={handleChange}
-          className="w-full p-2 mb-2 border rounded"
+          className="w-full p-2 mb-2 text-gray-500 border rounded"
         />
         <label>Longitude</label>
         <input
           name="lng"
           value={formData.lng}
           onChange={handleChange}
-          className="w-full p-2 mb-2 border rounded"
+          className="w-full p-2 mb-2  text-gray-500 border rounded"
         />
         <label>Colour</label>
         <select
           name="colour"
           value={formData.colour}
           onChange={handleChange}
-          className="w-full p-2 mb-2 border rounded"
+          className="w-full p-2 mb-2 text-gray-500 border rounded"
         >
-          <option value="1">Red</option>
-          <option value="2">Green</option>
-          <option value="3">Blue</option>
-          <option value="4">Purple</option>
+          <option className="text-red-500" value="1">Red</option> 
+          <option className="text-green-500" value="2">Green</option>
+          <option className="text-blue-500" value="3">Blue</option>
+          <option  className="text-purple-500" value="4">Purple</option>
         </select>
         <label>Name</label>
         <input
           name="name"
           value={formData.name}
           onChange={handleChange}
-          className="w-full p-2 mb-2 border rounded"
+          className="w-full p-2 mb-2  text-gray-500 border rounded"
         />
         <label>Image Link</label>
         <input
           name="imageLink"
           value={formData.imageLink}
           onChange={handleChange}
-          className="w-full p-2 mb-2 border rounded"
+          className="w-full p-2 mb-2  text-gray-500 border rounded"
         />
         <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded">
           Submit

@@ -45,7 +45,7 @@ const Register = () => {
 
   return (
     <>
-        <div className="grid mt-8 justify-items-center"> 
+        <div className="className=text-red-500 grid mt-8 justify-items-center"> 
             <div className="shadow-lg p-5 rounded-lg border-t-4 bg-white border-red-700">
                 <h1 className="text-xl text-slate-600 font-bold my-4">Signup</h1>
       <form
@@ -57,7 +57,7 @@ const Register = () => {
       Username
     </label>
     <input
-      className="border border-gray-400 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-red-500"
+      className="border border-gray-400 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-red-500  text-gray-900"
       type="text"
       name="username"
       id="username"
@@ -70,7 +70,7 @@ const Register = () => {
       Email Address
     </label>
     <input
-      className="border border-gray-400 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-red-500"
+      className="border border-gray-400 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-red-500  text-gray-900"
       type="email"
       name="email"
       id="email"
@@ -83,7 +83,7 @@ const Register = () => {
       Password
     </label>
     <input
-      className="border border-gray-400 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-red-500"
+      className="border border-gray-400 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-red-500  text-gray-900"
       type="password"
       name="password"
       id="password"
@@ -98,7 +98,7 @@ const Register = () => {
     Signup
   </button>
 </form>
-<p className="my-3 text-center">
+<p className="my-3 text-center  text-gray-700">
         Already have an account?
         <Link href="/login" className="mx-2 underline">Login</Link>
       </p>

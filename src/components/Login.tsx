@@ -44,7 +44,7 @@ const Login = () => {
       Email Address
     </label>
     <input
-      className="border border-gray-400 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-red-500"
+      className="border border-gray-400 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-red-500 text-gray-900"
       type="email"
       name="email"
       id="email"
@@ -58,7 +58,7 @@ const Login = () => {
       Password
     </label>
     <input
-      className="border border-gray-400 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-red-500"
+      className="border border-gray-400 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-red-500 text-gray-900"
       type="password"
       name="password"
       id="password"
@@ -75,7 +75,7 @@ const Login = () => {
   </button>
 </form>
 
-      <p className="my-3 text-center">
+      <p className="my-3 text-center text-gray-700">
         Don't you have an account?
         <Link href="signup" className="mx-2 underline">Signup</Link>
       </p>
