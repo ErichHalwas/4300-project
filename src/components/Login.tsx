@@ -32,19 +32,19 @@ const Login = () => {
   return (
     <div className='ShowItemList'>
     <div className="grid mt-8 justify-items-center"> 
-      <div className="shadow-lg p-5 rounded-lg border-t-4 bg-white border-red-700">
+      <div className="shadow-lg p-5 rounded-lg border-t-4 bg-chapel border-bulldog">
        <h1 className="text-xl text-slate-600 font-bold my-4">Login</h1>
       {error && <div className="text-lg text-red-500">{error}</div>}
       <form
   onSubmit={onSubmit}
-  className="my-8 max-w-md mx-auto flex flex-col gap-4 border p-6 border-gray-300 rounded-md shadow-sm bg-white"
+  className="my-8 max-w-md mx-auto flex flex-col gap-4 border p-6 border-gray-300 rounded-md shadow-sm bg-chapel"
 >
   <div className="flex flex-col">
-    <label htmlFor="email" className="mb-1 text-sm font-medium text-gray-700">
+    <label htmlFor="email" className="mb-1 text-sm font-medium text-stegeman">
       Email Address
     </label>
     <input
-      className="border border-gray-400 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-red-500 text-gray-900"
+      className="border border-gray-400 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-bulldog text-stegeman"
       type="email"
       name="email"
       id="email"
@@ -54,11 +54,11 @@ const Login = () => {
   </div>
 
   <div className="flex flex-col">
-    <label htmlFor="password" className="mb-1 text-sm font-medium text-gray-700">
+    <label htmlFor="password" className="mb-1 text-sm font-medium text-stegeman">
       Password
     </label>
     <input
-      className="border border-gray-400 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-red-500 text-gray-900"
+      className="border border-gray-400 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-bulldog text-stegeman"
       type="password"
       name="password"
       id="password"
@@ -69,14 +69,14 @@ const Login = () => {
 
   <button
     type="submit"
-    className="bg-red-700 text-white rounded px-4 py-2 mt-2 hover:bg-red-800 transition"
+    className="bg-bulldog text-chapel rounded px-4 py-2 mt-2 hover:bg-bulldog transition"
   >
     Login
   </button>
 </form>
 
-      <p className="my-3 text-center text-gray-700">
-        Don't you have an account?
+      <p className="my-3 text-center text-stegeman">
+        Don't have an account?
         <Link href="signup" className="mx-2 underline">Signup</Link>
       </p>
     </div>

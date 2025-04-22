@@ -105,21 +105,21 @@ export default function Form({ selectedLatLng, onSubmit, onFilterChange }: any) 
           name="lat"
           value={formData.lat}
           onChange={handleChange}
-          className="w-full p-2 mb-2 text-gray-500 border rounded"
+          className="w-full p-2 mb-2 text-stegeman border rounded"
         />
         <label>Longitude</label>
         <input
           name="lng"
           value={formData.lng}
           onChange={handleChange}
-          className="w-full p-2 mb-2  text-gray-500 border rounded"
+          className="w-full p-2 mb-2  text-stegemanborder rounded"
         />
         <label>Colour</label>
         <select
           name="colour"
           value={formData.colour}
           onChange={handleChange}
-          className="w-full p-2 mb-2 text-gray-500 border rounded"
+          className="w-full p-2 mb-2 text-stegeman border rounded"
         >
           <option className="text-red-500" value="1">Red</option> 
           <option className="text-green-500" value="2">Green</option>
@@ -131,16 +131,16 @@ export default function Form({ selectedLatLng, onSubmit, onFilterChange }: any) 
           name="name"
           value={formData.name}
           onChange={handleChange}
-          className="w-full p-2 mb-2  text-gray-500 border rounded"
+          className="w-full p-2 mb-2  text-stegeman border rounded"
         />
         <label>Image Link</label>
         <input
           name="imageLink"
           value={formData.imageLink}
           onChange={handleChange}
-          className="w-full p-2 mb-2  text-gray-500 border rounded"
+          className="w-full p-2 mb-2  text-stegeman border rounded"
         />
-        <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded">
+        <button type="submit" className="bg-blue-500 text-chapel px-4 py-2 rounded">
           Submit
         </button>
       </form>

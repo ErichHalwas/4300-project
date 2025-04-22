@@ -104,13 +104,13 @@ export default function MarkerOverlay({
         className="marker-overlay"
         style={{
           padding: "1rem",
-          background: "white",
+          background: "black",
           borderRadius: "8px",
           boxShadow: "0 2px 10px rgba(0,0,0,0.2)",
           zIndex: 1000,
         }}
       >
-        <p>Error: {error}</p>
+        <p style={{color: "red"}}>Error: {error}</p>
       </div>
     );
   }
@@ -126,15 +126,15 @@ export default function MarkerOverlay({
         position: "absolute",
         top: "20px",
         right: "20px",
-        background: "white",
+        background: "arch",
         padding: "1rem",
         borderRadius: "8px",
         boxShadow: "0 2px 10px rgba(0,0,0,0.2)",
         zIndex: 9999,
       }}
     >
-      <h2>{marker.name}</h2>
-      <p>
+      <h2  style={{color: "chapel"}}>{marker.name}</h2>
+      <p style={{color: "chapel"}}>
         Coordinates: {marker.lat}, {marker.lng}
       </p>
       {marker.imageLink && (
@@ -145,11 +145,11 @@ export default function MarkerOverlay({
         />
       )}
       {isOwner && (
-        <button onClick={handleDelete} className="bg-black text-white rounded px-4 py-2 mr-2 hover:bg-gray-800">
+        <button onClick={handleDelete} className="bg-arch text-chapel rounded px-4 py-2 mr-2 hover:bg-stegeman">
           Delete Marker
         </button>
       )}
-      <button onClick={onClose} className="bg-black text-white rounded px-4 py-2 mr-2 hover:bg-gray-800">Close</button>
+      <button onClick={onClose} className="bg-arch text-chapel rounded px-4 py-2 mr-2 hover:bg-stegeman">Close</button>
     </div>
   );
 }

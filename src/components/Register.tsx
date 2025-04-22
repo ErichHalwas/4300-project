@@ -45,19 +45,19 @@ const Register = () => {
 
   return (
     <>
-        <div className="className=text-red-500 grid mt-8 justify-items-center"> 
-            <div className="shadow-lg p-5 rounded-lg border-t-4 bg-white border-red-700">
-                <h1 className="text-xl text-slate-600 font-bold my-4">Signup</h1>
+        <div className="className=text-bulldog grid mt-8 justify-items-center"> 
+            <div className="shadow-lg p-5 rounded-lg border-t-4 bg-chapel border-red-700">
+                <h1 className="text-xl text-stegeman font-bold my-4">Signup</h1>
       <form
   onSubmit={handleSubmit}
-  className="my-8 max-w-md mx-auto flex flex-col gap-4 border p-6 border-gray-300 rounded-md shadow-sm bg-white"
+  className="my-8 max-w-md mx-auto flex flex-col gap-4 border p-6 border-stegeman rounded-md shadow-sm bg-chapel"
 >
   <div className="flex flex-col">
-    <label htmlFor="username" className="mb-1 text-sm font-medium text-gray-700">
+    <label htmlFor="username" className="mb-1 text-sm font-medium text-stegeman">
       Username
     </label>
     <input
-      className="border border-gray-400 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-red-500  text-gray-900"
+      className="border border-stegeman rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-bulldog  text-stegeman"
       type="text"
       name="username"
       id="username"
@@ -66,11 +66,11 @@ const Register = () => {
   </div>
 
   <div className="flex flex-col">
-    <label htmlFor="email" className="mb-1 text-sm font-medium text-gray-700">
+    <label htmlFor="email" className="mb-1 text-sm font-medium text-stegeman">
       Email Address
     </label>
     <input
-      className="border border-gray-400 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-red-500  text-gray-900"
+      className="border border-stegeman rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-bulldog text-stegeman"
       type="email"
       name="email"
       id="email"
@@ -79,11 +79,11 @@ const Register = () => {
   </div>
 
   <div className="flex flex-col">
-    <label htmlFor="password" className="mb-1 text-sm font-medium text-gray-700">
+    <label htmlFor="password" className="mb-1 text-sm font-medium text-stegeman">
       Password
     </label>
     <input
-      className="border border-gray-400 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-red-500  text-gray-900"
+      className="border border-stegeman rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-bulldog  text-stegeman"
       type="password"
       name="password"
       id="password"
@@ -93,12 +93,12 @@ const Register = () => {
 
   <button
     type="submit"
-    className="bg-red-700 text-white rounded px-4 py-2 mt-2 hover:bg-red-800 transition"
+    className="bg-bulldog text-chapel rounded px-4 py-2 mt-2 hover:bg-bulldog transition"
   >
     Signup
   </button>
 </form>
-<p className="my-3 text-center  text-gray-700">
+<p className="my-3 text-center  text-stegeman">
         Already have an account?
         <Link href="/login" className="mx-2 underline">Login</Link>
       </p>
