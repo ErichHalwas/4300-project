@@ -121,7 +121,7 @@ export default function MarkerOverlay({
 
   return (
     <div
-      className="marker-overlay"
+      className="marker-overlay text-gray-900"
       style={{
         position: "absolute",
         top: "20px",
@@ -135,7 +135,7 @@ export default function MarkerOverlay({
     >
       <h2>{marker.name}</h2>
       <p>
-        Coordinates: {marker.lat}, {marker.lng}
+      Coordinates: {marker.lat}, {marker.lng} 
       </p>
       {marker.imageLink && (
         <img
